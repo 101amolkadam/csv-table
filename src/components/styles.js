@@ -6,13 +6,21 @@ const styles = {
     marginBottom: 10
   },
   input: {
-    marginRight: 10
+    marginRight: 10,
+    marginTop: 10
   },
   table: {
     marginTop: 20
   },
   dialog: {
     minWidth: 300
+  },
+  filterButton: {
+    marginTop: 17
+  },
+  exportButton: {
+    marginTop: 17,
+    marginLeft: 30
   }
 };
 

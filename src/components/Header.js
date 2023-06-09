@@ -1,22 +1,14 @@
 import React, { useState } from "react";
 import CSVReader from "react-csv-reader";
 import { Typography, TextField, Button } from "@mui/material";
+import { CSVLink } from "react-csv";
 
-const styles = {
-  title: {
-    marginBottom: 10
-  },
-  input: {
-    marginRight: 10,
-    marginTop: 10
-  },
-  filter: {
-    marginTop: 17
-  }
-};
+import styles from "./styles";
 
 function Header({ onFileChange, csvData, originalData, onFilter }) {
   const [userInput, setUserInput] = useState("");
+  const [fileName, setFileName] = useState("data.csv");
+
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
   };
@@ -40,19 +32,27 @@ function Header({ onFileChange, csvData, originalData, onFilter }) {
       </Typography>
       <CSVReader
         inputId="csvFileInput"
-        inputStyle={{ color: "red" }}
-        onFileLoaded={onFileChange}
+        inputStyle={styles.fileInput}
+        onFileLoaded={(data, fileInfo) => {
+          onFileChange(data, fileInfo);
+          setFileName(fileInfo.name);
+        }}
       />
       <TextField
-        label="User Input"
+        label="Part"
         variant="outlined"
         value={userInput}
         onChange={handleInputChange}
         style={styles.input}
       />
-      <Button style={styles.filter} variant="contained" color="primary" onClick={filterData}>
+      <Button variant="contained" color="primary" onClick={filterData} style={styles.filterButton}>
         Filter
       </Button>
+      <CSVLink data={csvData} filename={fileName}>
+        <Button variant="contained" color="secondary" style={styles.exportButton}>
+          Export CSV
+        </Button>
+      </CSVLink>
     </>
   );
 }

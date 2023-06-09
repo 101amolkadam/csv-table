@@ -22,11 +22,12 @@ function App() {
     csvData: []
   });
 
-  const handleFileChange = (data) => {
+  const handleFileChange = (data, fileInfo) => {
     if (data && data.length > 0) {
       const csvData = data;
-      setCsvData(csvData);
-      setOriginalData(csvData);
+      const filteredData = csvData.filter((row) => row.some((cell) => cell));
+      setCsvData(filteredData);
+      setOriginalData(filteredData);
     }
   };
 
